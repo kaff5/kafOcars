@@ -44,6 +44,10 @@ msbuild.err
 msbuild.wrn
 *.obj/
 
-DTO/obj/Debug/net9.0/DTO.AssemblyInfoInputs.cache
+*.DTO/obj/Debug/net9.0/DTO.AssemblyInfoInputs.cache
+
+*.DTO/obj/Debug/net9.0/DTO.AssemblyInfo.cs
 
 DTO/obj/Debug/net9.0/DTO.AssemblyInfo.cs
+
+DTO/obj/Debug/net9.0/DTO.AssemblyInfoInputs.cache
