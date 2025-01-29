@@ -1,3 +1,5 @@
+using System;
+using System.Threading.Tasks;
 using KafOCars.Domain.Entities;
 
 namespace KafOCars.DataAccess.Repositories.Interfaces;
