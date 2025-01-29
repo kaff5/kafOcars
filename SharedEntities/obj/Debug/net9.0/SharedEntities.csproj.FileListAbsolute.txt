@@ -1,0 +1,17 @@
+/Users/kaff3/RiderProjects/KafOCars/SharedEntities/bin/Debug/net9.0/SharedEntities.deps.json
+/Users/kaff3/RiderProjects/KafOCars/SharedEntities/bin/Debug/net9.0/SharedEntities.runtimeconfig.json
+/Users/kaff3/RiderProjects/KafOCars/SharedEntities/bin/Debug/net9.0/SharedEntities.dll
+/Users/kaff3/RiderProjects/KafOCars/SharedEntities/bin/Debug/net9.0/SharedEntities.pdb
+/Users/kaff3/RiderProjects/KafOCars/SharedEntities/bin/Debug/net9.0/CoreLib.dll
+/Users/kaff3/RiderProjects/KafOCars/SharedEntities/bin/Debug/net9.0/CoreLib.pdb
+/Users/kaff3/RiderProjects/KafOCars/SharedEntities/obj/Debug/net9.0/SharedEntities.csproj.AssemblyReference.cache
+/Users/kaff3/RiderProjects/KafOCars/SharedEntities/obj/Debug/net9.0/SharedEntities.GeneratedMSBuildEditorConfig.editorconfig
+/Users/kaff3/RiderProjects/KafOCars/SharedEntities/obj/Debug/net9.0/SharedEntities.AssemblyInfoInputs.cache
+/Users/kaff3/RiderProjects/KafOCars/SharedEntities/obj/Debug/net9.0/SharedEntities.AssemblyInfo.cs
+/Users/kaff3/RiderProjects/KafOCars/SharedEntities/obj/Debug/net9.0/SharedEntities.csproj.CoreCompileInputs.cache
+/Users/kaff3/RiderProjects/KafOCars/SharedEntities/obj/Debug/net9.0/SharedEn.48A88E96.Up2Date
+/Users/kaff3/RiderProjects/KafOCars/SharedEntities/obj/Debug/net9.0/SharedEntities.dll
+/Users/kaff3/RiderProjects/KafOCars/SharedEntities/obj/Debug/net9.0/refint/SharedEntities.dll
+/Users/kaff3/RiderProjects/KafOCars/SharedEntities/obj/Debug/net9.0/SharedEntities.pdb
+/Users/kaff3/RiderProjects/KafOCars/SharedEntities/obj/Debug/net9.0/SharedEntities.genruntimeconfig.cache
+/Users/kaff3/RiderProjects/KafOCars/SharedEntities/obj/Debug/net9.0/ref/SharedEntities.dll

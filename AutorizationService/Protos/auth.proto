@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+option csharp_namespace = "KafOCars.Authorization";
+
+package auth;
+
+// Сообщения
+message RegisterRequest {
+  string username = 1;
+  string password = 2;
+  string email = 3;
+}
+
+message RegisterResponse {
+  bool success = 1;
+  string message = 2;
+}
+
+message LoginRequest {
+  string mail = 1;
+  string password = 2;
+}
+
+message LoginResponse {
+  bool success = 1;
+  string accessToken = 2;
+  string refreshToken = 3;
+  string message = 4;
+}
+
+message RefreshTokenRequest {
+  string refreshToken = 1;
+}
+
+message RefreshTokenResponse {
+  bool success = 1;
+  string accessToken = 2;
+  string message = 3;
+}
+
+message LogoutRequest {
+  string refreshToken = 1;
+}
+
+message LogoutResponse {
+  bool success = 1;
+  string message = 2;
+}
+
+// Сервис
+service AuthService {
+  rpc Register(RegisterRequest) returns (RegisterResponse);
+  rpc Login(LoginRequest) returns (LoginResponse);
+  rpc RefreshToken(RefreshTokenRequest) returns (RefreshTokenResponse);
+  rpc Logout(LogoutRequest) returns (LogoutResponse);
+}

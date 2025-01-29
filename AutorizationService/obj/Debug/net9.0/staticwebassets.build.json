@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "9HWI589KJ07lQyGEkfhfn7wCPZ29380OPZMC/zEv0zU=",
+  "Source": "AutorizationService",
+  "BasePath": "_content/AutorizationService",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}
