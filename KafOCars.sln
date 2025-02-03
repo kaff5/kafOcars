@@ -1,18 +1,18 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutorizationService", "AutorizationService\AutorizationService.csproj", "{3FA7A3BC-1F88-4450-B7F2-443CAC9EDB6C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutorizationService", "Sources\AutorizationService\AutorizationService.csproj", "{3FA7A3BC-1F88-4450-B7F2-443CAC9EDB6C}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{A866A8A1-603D-4C7D-AFFD-8DBF206BA875}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Sources\Shared", "{A866A8A1-603D-4C7D-AFFD-8DBF206BA875}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{253DEC9C-CFB2-407A-879B-08AEC39D04C0}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Sources\Services", "{253DEC9C-CFB2-407A-879B-08AEC39D04C0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DTO", "DTO\DTO.csproj", "{82C12A52-2823-44D9-B395-F7AC5F54C548}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DTO", "Sources\DTO\DTO.csproj", "{82C12A52-2823-44D9-B395-F7AC5F54C548}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreLib", "CoreLib\CoreLib.csproj", "{3B129CB1-5390-4369-8752-6A80EDAAF33B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreLib", "Sources\CoreLib\CoreLib.csproj", "{3B129CB1-5390-4369-8752-6A80EDAAF33B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedEntities", "SharedEntities\SharedEntities.csproj", "{F5AC1684-E5DA-4F35-A6BF-3C3247DAFD0E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedEntities", "Sources\SharedEntities\SharedEntities.csproj", "{F5AC1684-E5DA-4F35-A6BF-3C3247DAFD0E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastucture", "Infrastucture\Infrastucture.csproj", "{0369685F-5E7F-41E5-8C27-DA7A74BAB92F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastucture", "Sources\Infrastucture\Infrastucture.csproj", "{0369685F-5E7F-41E5-8C27-DA7A74BAB92F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
