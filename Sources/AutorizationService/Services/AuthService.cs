@@ -1,38 +1,39 @@
+using CoreLib.Db;
 using KafOCars.DataAccess.Repositories.Interfaces;
 using KafOCars.Domain.Entities;
 using KafOCars.DTOs;
 using KafOCars.Services.Interfaces;
-using KafOCars.Utils;
 
-namespace KafOCars.AuthorizationService.Services;
+namespace KafOCars.Services;
 
 public class AuthService : IAuthService
 {
     private readonly ILogger<AuthService> _logger;
     private readonly IConfiguration _configuration;
-    private readonly IUserRepository _userRepository;
-    private readonly IRoleRepository _roleRepository;
+    private readonly IUserReadRepository _userReadRepository;
+    private readonly IUserWriteRepository _userWriteRepository;
+    private readonly IRoleReadRepository _roleReadRepository;
     private readonly ITokenService _tokenService;
 
     public AuthService(
         ILogger<AuthService> logger,
         IConfiguration configuration,
-        IUserRepository userRepository,
-        IRoleRepository roleRepository,
+        IUserReadRepository userReadRepository, 
+        IUserWriteRepository userWriteRepository,
+        IRoleReadRepository roleReadRepository,
         ITokenService tokenService)
     {
         _logger = logger;
         _configuration = configuration;
-        _userRepository = userRepository;
-        _roleRepository = roleRepository;
+        _userReadRepository = userReadRepository;
+        _userWriteRepository = userWriteRepository;
+        _roleReadRepository = roleReadRepository;
         _tokenService = tokenService;
     }
 
     public async Task<RegisterDto> RegisterAsync(string username, string password, string email)
     {
-        _logger.LogInformation("Attempting to register user: {Username}", username);
-
-        var existingUser = await _userRepository.GetUserByEmailAsync(email);
+        var existingUser = await _userReadRepository.GetUserByEmailAsync(email);
         if (existingUser != null)
         {
             return new RegisterDto
@@ -52,7 +53,7 @@ public class AuthService : IAuthService
             CreatedAt = DateTime.UtcNow
         };
 
-        await _userRepository.AddUserAsync(user);
+        await _userWriteRepository.AddUserAsync(user);
 
         return new RegisterDto
         {
@@ -63,9 +64,7 @@ public class AuthService : IAuthService
 
     public async Task<LoginDto> LoginAsync(string email, string password)
     {
-        _logger.LogInformation("Attempting to login user with email: {Email}", email);
-
-        var user = await _userRepository.GetUserByEmailAsync(email);
+        var user = await _userReadRepository.GetUserByEmailAsync(email);
         if (user == null || !PasswordHasher.VerifyPassword(password, user.PasswordHash) || !user.IsActive)
         {
             return new LoginDto
@@ -75,11 +74,11 @@ public class AuthService : IAuthService
             };
         }
 
-        var roles = await _roleRepository.GetUserRolesAsync(user.Id);
+        var roles = await _roleReadRepository.GetUserRolesAsync(user.Id);
         var accessToken = _tokenService.GenerateAccessToken(user, roles);
         var refreshToken = _tokenService.GenerateRefreshToken();
 
-        await _userRepository.SaveRefreshTokenAsync(new RefreshToken
+        await _userWriteRepository.SaveRefreshTokenAsync(new RefreshToken
         {
             Id = Guid.NewGuid(),
             UserId = user.Id,
@@ -100,9 +99,7 @@ public class AuthService : IAuthService
 
     public async Task<RefreshTokenDto> RefreshTokenAsync(string refreshToken)
     {
-        _logger.LogInformation("Attempting to refresh token.");
-
-        var tokenEntity = await _userRepository.GetRefreshTokenAsync(refreshToken);
+        var tokenEntity = await _userReadRepository.GetRefreshTokenAsync(refreshToken);
         if (tokenEntity == null || tokenEntity.IsRevoked || tokenEntity.ExpiresAt <= DateTime.UtcNow)
         {
             return new RefreshTokenDto
@@ -112,7 +109,7 @@ public class AuthService : IAuthService
             };
         }
 
-        var user = await _userRepository.GetUserByIdAsync(tokenEntity.UserId);
+        var user = await _userReadRepository.GetUserByIdAsync(tokenEntity.UserId);
         if (user == null || !user.IsActive)
         {
             return new RefreshTokenDto
@@ -122,7 +119,7 @@ public class AuthService : IAuthService
             };
         }
 
-        var roles = await _roleRepository.GetUserRolesAsync(user.Id);
+        var roles = await _roleReadRepository.GetUserRolesAsync(user.Id);
         var newAccessToken = _tokenService.GenerateAccessToken(user, roles);
 
         return new RefreshTokenDto
@@ -135,9 +132,7 @@ public class AuthService : IAuthService
 
     public async Task<LogoutDto> LogoutAsync(string refreshToken)
     {
-        _logger.LogInformation("Attempting to logout user.");
-
-        var result = await _userRepository.RevokeRefreshTokenAsync(refreshToken);
+        var result = await _userWriteRepository.RevokeRefreshTokenAsync(refreshToken);
         if (!result)
         {
             return new LogoutDto

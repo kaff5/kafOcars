@@ -1,8 +1,6 @@
 using CoreLib.Db;
 using CoreLib.Infrastucture;
 using KafOCars.AuthorizationService.Controllers;
-using KafOCars.AuthorizationService.DataAccess.Repositories;
-using KafOCars.AuthorizationService.Services;
 using Microsoft.EntityFrameworkCore;
 using SharedEntities.ServiceRegistry;
 using KafOCars.DataAccess.Contexts;
@@ -16,52 +14,35 @@ var builder = WebApplication.CreateBuilder(args);
 // Configuration
 builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
 
-var databaseSettings = new DatabaseSettings
-{
-    MasterConnection = builder.Configuration.GetSection("ConnectionStrings:Master").Value ?? string.Empty,
-    ReplicaConnections = builder.Configuration.GetSection("ConnectionStrings:ReplicaConnections").Get<string[]>() ?? Array.Empty<string>(),
-    BalancerConnection = builder.Configuration.GetSection("ConnectionStrings:MasterAndReplica").Value ?? string.Empty,
-};
 
-// Явно регистрируем DatabaseSettings в DI-контейнере
-builder.Services.AddSingleton(databaseSettings);
+
+builder.Services.Configure<DatabaseSettings>(options =>
+{
+    options.MasterConnection = "Host=master.db;Database=mydb;Username=user;Password=pass";
+    options.ReplicaConnections = new[]
+    {
+        "Host=replica1.db;Database=mydb;Username=user;Password=pass",
+        "Host=replica2.db;Database=mydb;Username=user;Password=pass"
+    };
+});
 
 // Регистрация PostgresDbContextFactory
-builder.Services.AddSingleton(typeof(CoreLib.Db.IDbContextFactory<AuthDbContext>), typeof(PostgresDbContextFactory<AuthDbContext>));
+// Используем для возможности read | write обращений к БД.
+builder.Services.AddSingleton(typeof(CoreLib.Db.IDbContextFactory<>), typeof(PostgresDbContextFactory<>));
 
 
-
-// Database Contexts
-//builder.Services.AddDbContext<AuthDbContext>(options =>
-//    options.UseNpgsql(builder.Configuration.GetConnectionString("ServiceRegistry")));
-
-
-
-//builder.Services.AddScoped<ShardResolver>();
-
-//builder.Services.Configure<ServiceSettings>(builder.Configuration.GetSection("Service"));
-
-
-//оставим на позднее
-// builder.Services.AddDbContext<AuthDbContext>((serviceProvider, options) =>
-// {
-//     var shardResolver = serviceProvider.GetRequiredService<ShardResolver>();
-//     var connectionString = shardResolver.ResolveShardConnectionString();
-//     options.UseNpgsql(connectionString);
-// });
-
-// Dependency Injection
-builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<IRoleRepository, RoleRepository>();
+builder.Services.AddScoped<IUserReadRepository, UserReadRepository>();
+builder.Services.AddScoped<IUserWriteRepository, UserWriteRepository>();
+builder.Services.AddScoped<IRoleReadRepository, RoleReadRepository>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 
-// Add gRPC
+
 builder.Services.AddGrpc();
 
 var app = builder.Build();
 
-// Middleware
+
 if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
@@ -71,7 +52,7 @@ app.UseRouting();
 
 app.UseEndpoints(endpoints =>
 {
-    // Register gRPC services
+
     endpoints.MapGrpcService<AuthServiceController>();
     
     endpoints.MapGet("/", async context =>

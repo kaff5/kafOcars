@@ -7,7 +7,7 @@ using KafOCars.Services.Interfaces;
 using Microsoft.IdentityModel.Tokens;
 using JwtRegisteredClaimNames = Microsoft.IdentityModel.JsonWebTokens.JwtRegisteredClaimNames;
 
-namespace KafOCars.AuthorizationService.Services;
+namespace KafOCars.Services;
 
 public class TokenService : ITokenService
 {

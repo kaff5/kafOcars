@@ -1,8 +1,6 @@
-using Microsoft.EntityFrameworkCore;
-
 namespace CoreLib.Db;
 
-public interface IDbContextFactory<out TContext> where TContext : DbContext
+public interface IDbContextFactory<out TContext> where TContext : class
 {
     TContext CreateWriteContext();
     TContext CreateReadContext();

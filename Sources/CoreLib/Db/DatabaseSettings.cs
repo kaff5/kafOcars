@@ -4,5 +4,4 @@ public class DatabaseSettings
 {
     public string MasterConnection { get; set; }
     public string[] ReplicaConnections { get; set; }
-    public string BalancerConnection { get; set; }
 }

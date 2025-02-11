@@ -3,9 +3,9 @@ using KafOCars.Domain.Entities;
 
 namespace KafOCars.DataAccess.Contexts
 {
-    public class AuthDbContext : DbContext
+    public class RegisterDbContext : DbContext
     {
-        public AuthDbContext(DbContextOptions<AuthDbContext> options) : base(options) { }
+        public RegisterDbContext(DbContextOptions<RegisterDbContext> options) : base(options) { }
 
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }

@@ -1,7 +1,6 @@
-using CoreLib.Db;
 using Microsoft.EntityFrameworkCore;
 
-namespace KafOCars.DataAccess.Contexts;
+namespace CoreLib.Db;
 
 public class PostgresDbContextFactory<TContext> : CoreLib.Db.IDbContextFactory<TContext> where TContext : DbContext
 {
@@ -25,7 +24,6 @@ public class PostgresDbContextFactory<TContext> : CoreLib.Db.IDbContextFactory<T
 
     public TContext CreateReadContext()
     {
-        //применяем round robin для выбора реплики
         string connection;
         lock (_lock)
         {
