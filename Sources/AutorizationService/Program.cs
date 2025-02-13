@@ -1,13 +1,4 @@
 using CoreLib.Db;
-using CoreLib.Infrastucture;
-using KafOCars.AuthorizationService.Controllers;
-using Microsoft.EntityFrameworkCore;
-using SharedEntities.ServiceRegistry;
-using KafOCars.DataAccess.Contexts;
-using KafOCars.DataAccess.Repositories;
-using KafOCars.DataAccess.Repositories.Interfaces;
-using KafOCars.Services;
-using KafOCars.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -31,13 +22,6 @@ builder.Services.Configure<DatabaseSettings>(options =>
 builder.Services.AddSingleton(typeof(CoreLib.Db.IDbContextFactory<>), typeof(PostgresDbContextFactory<>));
 
 
-builder.Services.AddScoped<IUserReadRepository, UserReadRepository>();
-builder.Services.AddScoped<IUserWriteRepository, UserWriteRepository>();
-builder.Services.AddScoped<IRoleReadRepository, RoleReadRepository>();
-builder.Services.AddScoped<ITokenService, TokenService>();
-builder.Services.AddScoped<IAuthService, AuthService>();
-
-
 builder.Services.AddGrpc();
 
 var app = builder.Build();
@@ -53,7 +37,7 @@ app.UseRouting();
 app.UseEndpoints(endpoints =>
 {
 
-    endpoints.MapGrpcService<AuthServiceController>();
+    //endpoints.MapGrpcService<AuthServiceController>();
     
     endpoints.MapGet("/", async context =>
     {

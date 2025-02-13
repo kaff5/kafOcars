@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CoreLib.Db;
 
-public class PostgresDbContextFactory<TContext> : CoreLib.Db.IDbContextFactory<TContext> where TContext : DbContext
+public class PostgresDbContextFactory<TContext> : IDbContextFactory<TContext> where TContext : DbContext
 {
     private readonly DatabaseSettings _settings;
     private int _currentReplicaIndex = 0;
